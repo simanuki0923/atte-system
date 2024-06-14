@@ -1,0 +1,194 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Header styles */
+.header {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    background-color: white;
+
+    padding: 20px;
+    color: white;
+
+
+    font-size: 24px;
+}
+
+.header__logo {
+    color: black;
+
+    text-decoration: none;
+    font-size: 24px;
+}
+
+.nav-links a {
+
+
+    color: black;
+    margin-left: 15px;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+
+
+    color: #d1e7ff;
+}
+
+/* Container for the content */
+.content {
+
+
+    flex: 1;
+
+
+    padding: 20px;
+    width: 80%;
+
+
+    max-width: 100%;
+    margin: 0 auto;
+
+    
+
+    overflow: hidden;
+}
+
+/* Date navigation styles */
+.date-navigation {
+
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.current-date {
+
+
+    margin: 0 20px;
+    font-size: 24px;
+}
+
+.button-container {
+    display: flex;
+    align-items: center;
+}
+
+.button-container form:first-child {
+    margin-right: 10px;
+    /* Adjust spacing between date and left button */
+}
+
+.button-container form:last-child {
+    margin-left: 10px;
+    /* Adjust spacing between date and right button */
+}
+
+.date__change-button {
+    background-color: white;
+    color: black;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+    margin: 0 5px;
+}
+
+.date__change-button:hover {
+    background-color: #0056b3;
+}
+
+/* Table styles */
+.attendance-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.attendance-table th,
+.attendance-table td {
+    padding: 12px 15px;
+    text-align: center;
+
+
+    border-bottom: 1px solid #ddd;
+}
+
+.attendance-table th {
+    
+    font-weight: bold;
+}
+
+.attendance-table td {
+    background-color: #ffffff;
+}
+
+.attendance-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Pagination styles */
+
+.pagination__wrap {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.pagination__text {
+    display: inline-block;
+}
+
+.pagination__nav {
+    display: flex;
+    padding: 0;
+}
+
+.pagination__list {
+    list-style: none;
+    text-decoration: none;
+    border: 1px solid gainsboro;
+    padding: 8px 15px;
+}
+
+.pagination__list:first-child {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.pagination__list:last-child {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+
+.pagination__item {
+    text-decoration: none;
+    color: steelblue;
+}
+
+/* Footer styles */
+footer {
+    background-color: white;
+    text-align: center;
+    padding: 10px 0;
+}
+
+.company-name {
+    color: #333;
+    font-size: 14px;
+}
