@@ -158,7 +158,7 @@ class AttendanceController extends Controller
     }
 
     // Search and display attendance records for a specific user
-    public function user(Request $request)
+    public function searchUser(Request $request)
     {
         $searchName = $request->input('search_name');
         $user = User::where('name', $searchName)->first();
@@ -167,7 +167,8 @@ class AttendanceController extends Controller
 
         $users = $user ? 
             DB::table('attendance_view_table')->where('name', $searchName)->paginate(5) : 
-            collect();
+            collect(); // ページネーションするために collect() で初期化
+
         $userList = User::all();
 
         return view('attendance_user', compact('users', 'displayUser', 'userList'));

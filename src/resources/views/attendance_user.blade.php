@@ -19,17 +19,28 @@
             <a href="/logout">ログアウト</a>
         </nav>
     </header>
-  <form class="form__wrap" action="/user" method="post">
-    <div class="contact-form__content">
-      <div class="contact-form__heading">
-      @if (Auth::check())
-       <p>{{ Auth::user()->name }} さん、お疲れ様です！</p>
-      @else
-       <p class="header__text">ユーザーを選択してください</p>
-      @endif
-      </div>
+  <form class="header__wrap" action="{{ route('user.search') }}" method="post">
+    @csrf
+
+    @if($displayUser)
+        <p class="header__text">{{ $displayUser }} さんの勤怠表</p>
+        
+    @else
+        <p class="header__text">ユーザーを選択してください</p>
+    @endif
+
+    <div class="search__item">
+        <input class="search__input" type="text" name="search_name" placeholder="名前検索" value="{{ $searchParams['name'] ?? '' }}" list="user_list">
+        <datalist id="user_list">
+            @if($userList)
+                @foreach($userList as $user)
+                    <option value="{{ $user->name }}">{{ $user->name }}</option>
+                @endforeach
+            @endif
+        </datalist>
+        <button type="submit" class="search__button">検索</button>
     </div>
-  </form>
+</form>
    <div class="table__wrap">
         <table class="attendance__table">
             <tr class="table__row">
