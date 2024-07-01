@@ -1,0 +1,140 @@
+.text-center {
+    text-align: center;
+}
+
+.centered {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 10vh;
+    /* 画面全体の高さに対して中央揃えする場合 */
+}
+
+.header__wrap {
+    display: flex;
+    flex-direction: column;
+    /* 子要素を縦方向に配置 */
+    align-items: center;
+    /* 水平方向に中央揃え */
+    padding: 20px 0;
+    /* 上下のパディングを調整 */
+    width: 100%;
+    /* 幅を100%にして中央に配置 */
+    box-sizing: border-box;
+    /* パディングを含む幅 */
+}
+
+.header {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    background-color: white;
+
+    padding: 20px;
+    color: white;
+
+
+    font-size: 24px;
+}
+
+.header__logo {
+    color: black;
+
+    text-decoration: none;
+    font-size: 24px;
+}
+
+.nav-links a {
+
+
+    color: black;
+    margin-left: 15px;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+
+
+    color: #d1e7ff;
+}
+
+.current-date {
+    text-align: center;
+    /* テキストを中央揃え */
+    font-size: 18px;
+    /* フォントサイズを調整 */
+    margin: 10px 0;
+    /* 上下のマージンを調整 */
+    width: 100%;
+    /* 幅を100%にして中央に配置 */
+}
+
+.contact-form__content {
+    display: flex;
+    justify-content: center;
+    /* 横方向の中央揃え */
+    align-items: center;
+    /* 縦方向の中央揃え */
+    height: 10vh;
+    /* 画面全体の高さいっぱいに要素を広げる */
+}
+
+.contact-form__heading {
+    text-align: center;
+    /* テキストを中央揃え */
+    font-size: 24px;
+    /* フォントサイズを調整 */
+    margin: 0 auto;
+    /* 左右のマージンを自動で調整 */
+    max-width: 80%;
+    /* 最大幅を指定 */
+}
+
+.header__text {
+    margin: 10px 0;
+    /* 上下のマージンを調整 */
+    text-align: center;
+    font-size: 20px;
+}
+
+.date__change-button {
+    padding: 10px 15px;
+    /* 上下のパディングを調整 */
+    font-size: 20px;
+    color: steelblue;
+    border: 1px solid steelblue;
+    background-color: white;
+}
+
+.table__wrap {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    /* 幅を100%にして中央に配置 */
+}
+
+.attendance__table {
+    width: 80%;
+    /* テーブルの幅を調整 */
+    border: 1px solid #ddd;
+    border-collapse: collapse;
+    margin-top: 20px;
+    /* 上部のマージンを追加 */
+}
+
+.table__header,
+.table__item {
+    width: 20%;
+    text-align: left;
+    padding-left: 5%;
+    height: 50px;
+    /* 高さを調整 */
+    border-top: 1px solid gray;
+}
+
+.table__row:hover {
+    background-color: #f5f5f5;
+}

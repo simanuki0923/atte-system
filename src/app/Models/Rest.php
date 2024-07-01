@@ -9,13 +9,7 @@ class Rest extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'date',
-        'start',
-        'end',
-        'total',
-        'work_id'
-    ];
+    protected $fillable = ['work_id', 'start', 'end'];
 
     public function works()
     {

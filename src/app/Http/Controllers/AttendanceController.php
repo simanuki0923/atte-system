@@ -14,44 +14,37 @@ use Illuminate\Support\Facades\DB;
 class AttendanceController extends Controller
 {
     // Display the main attendance view
-
     public function index()
     {
-        
-   
-      $displayDate = Carbon::now();
-      $works = Work::whereDate('date', $displayDate)
+        $displayDate = Carbon::now();
+        $works = Work::whereDate('date', $displayDate)
             ->with('user', 'rests')
             ->paginate(10);
-            return view('attendance', compact('works', 'displayDate'));
+
+        return view('attendance', compact('works', 'displayDate'));
     }
 
-    
-   
-// Display attendance records for a specific date
-    
+    // Display attendance records for a specific date
     public function indexDate(Request $request)
     {
         $displayDate = Carbon::now();
         $works = Work::whereDate('date', $displayDate)->paginate(5);
+
         return view('attendance', compact('works', 'displayDate'));
     }
 
-    
-    
-
- 
-// Handle starting work, ending work, starting rest, and ending rest
-    
-     public function work(Request $request)
-    {     
+    // Handle starting work, ending work, starting rest, and ending rest
+    public function work(Request $request)
+    {
         $now_date = Carbon::now()->format('Y-m-d');
         $now_time = Carbon::now()->format('H:i:s');
-        $user_id = Auth::user()->id;
-        $user = User::find($user_id);
+        $user = Auth::user();
+
         if (!$user) {
             return redirect('/')->with('error', 'User not found');
         }
+
+        $user_id = $user->id;
 
         if ($request->has('start_work')) {
             Work::create([
@@ -66,10 +59,10 @@ class AttendanceController extends Controller
             $attendance = Work::where('user_id', $user_id)
                 ->where('date', $now_date)
                 ->first();
-        if ($attendance) {
-            $attendance->end = $now_time;
-            $attendance->save();
-            $user->status = 3; // Work ended
+            if ($attendance) {
+                $attendance->end = $now_time;
+                $attendance->save();
+                $user->status = 3; // Work ended
             }
         }
 
@@ -77,10 +70,10 @@ class AttendanceController extends Controller
             $work = Work::where('user_id', $user_id)
                 ->where('date', $now_date)
                 ->first();
-        if ($work) {
-            Rest::create([
-                'start' => $now_time,
-                'work_id' => $work->id, // Make sure 'work_id' is assigned correctly
+            if ($work) {
+                Rest::create([
+                    'start' => $now_time,
+                    'work_id' => $work->id,
                 ]);
                 $user->status = 2; // Break started
             }
@@ -90,55 +83,102 @@ class AttendanceController extends Controller
             $work = Work::where('user_id', $user_id)
                 ->where('date', $now_date)
                 ->first();
-        if ($work) {
-            $rest = Rest::where('work_id', $work->id)
+            if ($work) {
+                $rest = Rest::where('work_id', $work->id)
                     ->whereNotNull('start')
                     ->whereNull('end')
                     ->first();
-                
-        if ($rest) {
-                $rest->end = $now_time;
-                $rest->save();
-                $user->status = 1; // Break ended, back to work
+                if ($rest) {
+                    $rest->end = $now_time;
+                    $rest->save();
+                    $user->status = 1; // Break ended, back to work
                 }
             }
         }
+
         $user->save();
         return redirect('/')->with('status', $user->status);
     }
-     
+
     // Display punch status
-    
     public function punch()
     {
         $now_date = Carbon::now()->format('Y-m-d');
-        $user_id = Auth::user()->id;
-        $work = Work::where('user_id', $user_id)
+        $user = Auth::user();
+
+        if (!$user) {
+            return redirect('/')->with('error', 'User not found');
+        }
+
+        $work = Work::where('user_id', $user->id)
             ->where('date', $now_date)
             ->first();
-        $status = $work ? Auth::user()->status : 0;
+        $status = $work ? $user->status : 0;
+
         return view('index', compact('status'));
     }
 
     // Display attendance records for a specific date and handle date navigation
-    
-  
     public function perDate(Request $request, $date)
     {
         $displayDate = Carbon::parse($date);
 
-    if ($request->has('prevDate')) {
-        $displayDate->subDay();
+        if ($request->has('prevDate')) {
+            $displayDate->subDay();
         }
 
-    if ($request->has('nextDate')) {
-        $displayDate->addDay();
+        if ($request->has('nextDate')) {
+            $displayDate->addDay();
         }
 
         $works = Work::whereDate('date', $displayDate)
             ->with('user', 'rests')
             ->paginate(5);
-         return view('attendance', compact('works', 'displayDate'));
+
+        return view('attendance', compact('works', 'displayDate'));
     }
 
+    // Display attendance records for the logged-in user
+    public function indexUser()
+    {
+        $user = Auth::user();
+
+        if (!$user) {
+            return redirect('/')->with('error', 'User not found');
+        }
+
+        $displayUser = $user->name;
+
+        $users = DB::table('attendance_view_table')
+            ->where('name', $displayUser)
+            ->paginate(5);
+        $userList = User::all();
+
+        return view('attendance_user', compact('users', 'displayUser', 'userList'));
+    }
+
+    // Search and display attendance records for a specific user
+    public function user(Request $request)
+    {
+        $searchName = $request->input('search_name');
+        $user = User::where('name', $searchName)->first();
+
+        $displayUser = $user ? $user->name : 'User not found';
+
+        $users = $user ? 
+            DB::table('attendance_view_table')->where('name', $searchName)->paginate(5) : 
+            collect();
+        $userList = User::all();
+
+        return view('attendance_user', compact('users', 'displayUser', 'userList'));
+    }
+
+    // Display list of users
+    public function CreateFolderForm()
+    {
+        $users = User::paginate(5);
+        $displayDate = Carbon::now();
+
+        return view('user', compact('users', 'displayDate'));
+    }
 }

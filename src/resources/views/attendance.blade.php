@@ -14,6 +14,8 @@
         <nav class="nav-links">
             <a href="/">ホーム</a>
             <a href="{{ route('attendance.date') }}">日付一覧</a>
+            <a href="/create-folder">ユーザー一覧</a>
+            <a href="/user">勤怠表</a>
             <a href="/logout">ログアウト</a>
         </nav>
     </header>

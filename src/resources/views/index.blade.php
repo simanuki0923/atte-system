@@ -18,7 +18,9 @@
       @if (Auth::check())
         <a href="/">ホーム</a>
         <a href="{{ route('attendance') }}">日付一覧</a>
-        <a href="/logout">ログアウト</a>
+        <a href="/create-folder">ユーザー一覧</a>
+        <a href="/user">勤怠表</a>
+        <a href="{{ route('logout') }}">ログアウト</a>
       @endif
     </nav>
   </header>

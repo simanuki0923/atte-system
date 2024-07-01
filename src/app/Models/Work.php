@@ -9,12 +9,7 @@ class Work extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'date',
-        'start',
-        'end',
-        'user_id'
-    ];
+    protected $fillable = ['user_id', 'date', 'start', 'end'];
 
     public function user()
     { 
@@ -24,6 +19,11 @@ class Work extends Model
     public function rests()
     {
          return $this->hasMany(Rest::class, 'work_id');
+    }
+
+    public function attendance()
+    {
+        return $this->belongsTo(Attendance::class, 'user_id', 'user_id');
     }
 
 }

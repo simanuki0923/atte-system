@@ -106,6 +106,10 @@ return [
     |
     */
 
-    'password_timeout' => 10800,
+    // Customize the notification class
+    'verification' => [
+     'notification' => App\Providers\VerifyEmail::class,
+    ],
 
+    'password_timeout' => 10800,
 ];
