@@ -20,7 +20,7 @@ services:
         image: mysql:8.0.26
         environment:
             MYSQL_ROOT_PASSWORD: root
-            MYSQL_DATABASE: sttelaravel
+            MYSQL_DATABASE: attelaravel
             MYSQL_USER: admin
             MYSQL_PASSWORD: fatemamori
         command:
